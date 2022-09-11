@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 import sys
 from PIL import Image, ImageTk
+from Camera import Camera
 
 LARGE_FONT = ("Verdana", 12)
 
@@ -26,7 +27,7 @@ class App(tk.Tk):
 
         self.frames = {}
 
-        for F, V in (ImageCapture, ImagePreview, WordCloud):
+        for F in (ImageCapture, ImagePreview, WordCloud):
             frame = F(container, self)
             self.frames[F] = frame
             frame.grid(row=0, column=0, sticky="nsew")

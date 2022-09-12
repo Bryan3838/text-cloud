@@ -16,10 +16,7 @@ class Camera():
                 image = cv2.flip(frame, 1)
                 image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
                 return (ret, image)
-            else:
-                return (ret, None)
-        else:
-            return (ret, None)
+        return (False, None)
 
     def __del__(self):
         if self.vid.isOpened():

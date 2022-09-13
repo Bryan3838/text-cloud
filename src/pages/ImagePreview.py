@@ -41,8 +41,8 @@ class ImagePreview(tk.Frame):
         controller.show_frame("ImagePreview")
 
     def retake_image(self, controller):
-        startPage = controller.get_frame("ImageCapture")
-        startPage.show(controller)
+        page = controller.get_frame("ImageCapture")
+        page.show(controller)
 
     def next(self, controller):
         page = controller.get_frame("WordCloud")

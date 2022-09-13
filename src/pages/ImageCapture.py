@@ -45,11 +45,12 @@ class ImageCapture(tk.Frame):
 
     def take_snapshot(self, controller):
         ret, frame = self.camera.get_frame()
-        snapshot = ImageTk.PhotoImage(image = Image.fromarray(frame))
+        if ret:
+            snapshot = ImageTk.PhotoImage(image=Image.fromarray(frame))
 
-        page = controller.get_frame("ImagePreview")
-        page.snapshot = snapshot
-        page.show(controller)
+            page = controller.get_frame("ImagePreview")
+            page.snapshot = snapshot
+            page.show(controller)
 
     def enable_camera(self):
         self.camera = Camera()

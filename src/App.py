@@ -4,13 +4,13 @@ import sys
 from src.pages.Navigation import Navigation
 from src.pages.ImageCapture import ImageCapture
 from src.pages.ImagePreview import ImagePreview
-from src.pages.TextExtraction import TextExtraction
+from src.pages.SourceView import SourceView
 
 pages = {
     "Navigation": Navigation,
     "ImageCapture": ImageCapture,
     "ImagePreview": ImagePreview,
-    "TextExtraction": TextExtraction,
+    "SourceView": SourceView,
 }
 
 class App(tk.Tk):

@@ -34,7 +34,7 @@ class ImagePreview(tk.Frame):
                 frame.destroy()
         self.label_frames = []
 
-        page = controller.get_frame("TextExtraction")
+        page = controller.get_frame("SourceView")
         image = page.data[max(page.data.keys())]["image"]
         
         label_frame = ttk.Labelframe(self)
@@ -53,14 +53,14 @@ class ImagePreview(tk.Frame):
         self.update(controller)
 
     def retake_image(self, controller):
-        page = controller.get_frame("TextExtraction")
+        page = controller.get_frame("SourceView")
         del page.data[max(page.data.keys())]
 
         page = controller.get_frame("ImageCapture")
         page.show(controller)
 
     def next(self, controller):
-        page = controller.get_frame("TextExtraction")
+        page = controller.get_frame("SourceView")
         page.show(controller)
 
         page1 = controller.get_frame("ImageCapture")

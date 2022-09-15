@@ -8,12 +8,12 @@ from src.components.ScrollableFrame import ScrollableFrame
 
 from src.fonts import LARGE_FONT
 
-class TextExtraction(tk.Frame):
+class SourceView(tk.Frame):
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
 
-        self.header = ttk.Label(self, text="Text Extraction", font=LARGE_FONT)
+        self.header = ttk.Label(self, text="Source View", font=LARGE_FONT)
         self.header.pack(side=tk.TOP)
 
         self.options = ttk.Frame(self)
@@ -31,7 +31,7 @@ class TextExtraction(tk.Frame):
         self.data_frames = []
 
     def show(self, controller):
-        controller.show_frame("TextExtraction")
+        controller.show_frame("SourceView")
         self.update(controller)
 
     def add_another_source(self, controller):

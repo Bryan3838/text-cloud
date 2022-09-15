@@ -2,9 +2,9 @@ import tkinter as tk
 from tkinter import ttk
 from PIL import ImageTk
 
+from src.TextArray import TextArray
 from src.components.ScrollableImage import ScrollableImage
 from src.components.ScrollableFrame import ScrollableFrame
-from src.ImageText import ImageText
 
 from src.fonts import LARGE_FONT
 
@@ -73,21 +73,37 @@ class TextExtraction(tk.Frame):
                     text_box.insert(tk.END, " ".join(text.text_array))
                     text_box.pack(side=tk.TOP)
                     self.data_frames.append(text_box)
-
+                    button_update = ttk.Button(data_frame, text="Update",
+                        command=lambda key=key, text_box=text_box: self.update_text(key, text_box))
+                    button_update.pack(side=tk.TOP)
 
                 button_delete = ttk.Button(data_frame, text="Delete",
                     command=lambda frame=data_frame, key=key: self.delete_data(frame, key))
                 button_delete.pack(side=tk.TOP)
 
-    def add_data(self, title, image, text_array):
+                separator_frame = tk.Frame(self.body.scrollable_frame, height=10, bg="gray")
+                separator_frame.pack(side=tk.TOP, fill=tk.X)
+
+    def add_data(self, title, image, text):
         self.data.update({
             self.count: {
                 "title": title,
                 "image": image,
-                "text": text_array,
+                "text": text,
             }
         })
         self.count += 1
+
+    def update_text(self, key, text_box):
+        text = TextArray(text_box.get("1.0","end-1c").split())
+        data = self.data[key]
+        self.data.update({
+            key: {
+                "title": data["title"],
+                "image": data["image"],
+                "text": text,
+            }
+        })
 
     def delete_data(self, frame, key):
         frame.destroy()

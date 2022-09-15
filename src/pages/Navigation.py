@@ -74,11 +74,13 @@ class Navigation(tk.Frame):
             prefix, suffix = os.path.splitext(base_name)
             extension = suffix[1:]
             category = get_file_category_from_extension(extension)
+
+            page = controller.get_frame("TextExtraction")
+
             if category == FileType.IMAGE_FILES:
                 image = Image.open(path)
                 image = ImageText(image)
 
-                page = controller.get_frame("TextExtraction")
                 page.add_data(base_name, image, image.text_array)
             elif category == FileType.TEXT_FILES:
                 text = []
@@ -86,11 +88,16 @@ class Navigation(tk.Frame):
                     for line in f:
                         text.append(line.strip())
                 text_array = TextArray(text)
-                page = controller.get_frame("TextExtraction")
+
                 page.add_data(base_name, None, text_array)
-                
+            elif category == FileType.PDF_FILE:
+                pass
         page1 = controller.get_frame("TextExtraction")
         page1.show(controller)
 
     def insert_text(self, controller):
-        pass
+        page = controller.get_frame("TextExtraction")
+        page.add_data("Text Input", None, TextArray([]))
+        
+        page1 = controller.get_frame("TextExtraction")
+        page1.show(controller)

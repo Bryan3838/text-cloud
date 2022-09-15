@@ -3,7 +3,7 @@ import tkinter
 class ScrollableImage(tkinter.Frame):
     def __init__(self, master=None, **kw):
         self.image = kw.pop('image', None)
-        sw = kw.pop('scrollbarwidth', 10)
+        sw = kw.pop('scrollbarwidth', 12)
         super(ScrollableImage, self).__init__(master=master, **kw)
         self.cnvs = tkinter.Canvas(self, highlightthickness=0, **kw)
         self.cnvs.create_image(0, 0, anchor='nw', image=self.image)

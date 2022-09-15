@@ -1,14 +1,16 @@
 import tkinter as tk
 import sys
 
+from src.pages.Navigation import Navigation
 from src.pages.ImageCapture import ImageCapture
 from src.pages.ImagePreview import ImagePreview
-from src.pages.WordCloud import WordCloud
+from src.pages.TextExtraction import TextExtraction
 
 pages = {
+    "Navigation": Navigation,
     "ImageCapture": ImageCapture,
     "ImagePreview": ImagePreview,
-    "WordCloud": WordCloud
+    "TextExtraction": TextExtraction,
 }
 
 class App(tk.Tk):
@@ -45,7 +47,7 @@ class App(tk.Tk):
             self.frames[V] = frame
             frame.grid(row=0, column=0, sticky="nsew")
 
-        self.show_frame("ImageCapture")
+        self.show_frame("Navigation")
 
     def show_frame(self, page_name):
         frame = self.frames[page_name]
@@ -53,7 +55,3 @@ class App(tk.Tk):
 
     def get_frame(self, page_name):
         return self.frames[page_name]
-
-app = App()
-app.geometry("1280x720")
-app.mainloop()

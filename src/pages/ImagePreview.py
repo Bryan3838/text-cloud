@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
+from PIL import ImageTk
 
 from src.fonts import LARGE_FONT
 
@@ -7,45 +8,59 @@ class ImagePreview(tk.Frame):
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
-        self.ui_components = tk.Frame
 
-        self.ui_components.header = ttk.Label(self, text="Image Capture", font=LARGE_FONT)
-        self.ui_components.header.pack(side=tk.TOP)
+        self.header = ttk.Label(self, text="Image Preview", font=LARGE_FONT)
+        self.header.pack(side=tk.TOP)
 
-        self.ui_components.options = ttk.Frame(self)
-        self.ui_components.options.pack(side=tk.TOP)
+        self.options = ttk.Frame(self)
+        self.options.pack(side=tk.TOP)
 
-        self.ui_components.body = ttk.Frame(self)
-        self.ui_components.body.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
+        self.body = ttk.Frame(self)
+        self.body.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
 
-        self.ui_components.button1 = ttk.Button(self, text="Retake Image",
+        self.button1 = ttk.Button(self, text="Retake Image",
             command=lambda: self.retake_image(controller))
-        self.ui_components.button1.pack(in_=self.ui_components.options, side=tk.LEFT, anchor="n")
+        self.button1.pack(in_=self.options, side=tk.LEFT, anchor="n")
 
-        self.ui_components.button2 = ttk.Button(self, text="Next",
+        self.button2 = ttk.Button(self, text="Next",
             command=lambda: self.next(controller))
-        self.ui_components.button2.pack(in_=self.ui_components.options, side=tk.LEFT, anchor="n")
+        self.button2.pack(in_=self.options, side=tk.LEFT, anchor="n")
 
-        label_frame = ttk.Labelframe(self)
-        label_frame.pack(in_=self.ui_components.body)
-        self.image_label = ttk.Label(label_frame)
-        self.image_label.pack()
+        self.label_frames = []
         
-    def update(self):
-        if self.snapshot:
-            self.image_label.imgtk = self.snapshot
-            self.image_label.configure(image=self.snapshot)
+    def update(self, controller):
+        if self.label_frames:
+            for frame in self.label_frames:
+                frame.destroy()
+        self.label_frames = []
+
+        page = controller.get_frame("TextExtraction")
+        image = page.data[max(page.data.keys())]["image"]
+        
+        label_frame = ttk.Labelframe(self)
+        label_frame.pack(in_=self.body)
+        self.label_frames.append(label_frame)
+        
+        image_label = ttk.Label(label_frame)
+        image_label.pack()
+        imagetk = ImageTk.PhotoImage(image=image)
+        image_label.imgtk = imagetk
+        image_label.configure(image=imagetk)
+            
 
     def show(self, controller):
-        self.update()
         controller.show_frame("ImagePreview")
+        self.update(controller)
 
     def retake_image(self, controller):
+        page = controller.get_frame("TextExtraction")
+        del page.data[max(page.data.keys())]
+
         page = controller.get_frame("ImageCapture")
         page.show(controller)
 
     def next(self, controller):
-        page = controller.get_frame("WordCloud")
+        page = controller.get_frame("TextExtraction")
         page.show(controller)
 
         page1 = controller.get_frame("ImageCapture")

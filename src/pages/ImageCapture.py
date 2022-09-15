@@ -52,7 +52,7 @@ class ImageCapture(tk.Frame):
             image = Image.fromarray(frame)
             image = ImageText(image)
 
-            page = controller.get_frame("TextExtraction")
+            page = controller.get_frame("SourceView")
             page.add_data("Image Capture", image, image.text_array)
             page.show(controller)
 

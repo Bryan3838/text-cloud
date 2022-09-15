@@ -75,7 +75,7 @@ class Navigation(tk.Frame):
             extension = suffix[1:]
             category = get_file_category_from_extension(extension)
 
-            page = controller.get_frame("TextExtraction")
+            page = controller.get_frame("SourceView")
 
             if category == FileType.IMAGE_FILES:
                 image = Image.open(path)
@@ -92,12 +92,12 @@ class Navigation(tk.Frame):
                 page.add_data(base_name, None, text_array)
             elif category == FileType.PDF_FILE:
                 pass
-        page1 = controller.get_frame("TextExtraction")
+        page1 = controller.get_frame("SourceView")
         page1.show(controller)
 
     def insert_text(self, controller):
-        page = controller.get_frame("TextExtraction")
+        page = controller.get_frame("SourceView")
         page.add_data("Text Input", None, TextArray([]))
         
-        page1 = controller.get_frame("TextExtraction")
+        page1 = controller.get_frame("SourceView")
         page1.show(controller)

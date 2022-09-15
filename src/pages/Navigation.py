@@ -1,7 +1,5 @@
 import os
-import numpy as np
 import tkinter as tk
-import re
 from tkinter import ttk
 from tkinter import filedialog as fd
 from PIL import Image

@@ -1,5 +1,6 @@
 from src.App import App
 
-app = App()
-app.geometry("1280x720")
-app.mainloop()
+if __name__ == '__main__':
+    app = App()
+    app.geometry("1280x720")
+    app.mainloop()

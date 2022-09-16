@@ -16,17 +16,11 @@ pages = {
 class App(tk.Tk):
 
     def __init__(self, *args, **kwargs):
-        def on_closing():
-            page = self.get_frame("ImageCapture")
-            page.disable_camera()
-
-            sys.exit()
-
         tk.Tk.__init__(self, *args, **kwargs)
 
         tk.Tk.wm_title(self, "App")
 
-        self.protocol("WM_DELETE_WINDOW", on_closing)
+        self.protocol("WM_DELETE_WINDOW", self.on_closing)
 
         container = tk.Frame(self)
         container.pack(side="top", fill="both", expand=True)
@@ -35,7 +29,7 @@ class App(tk.Tk):
 
         menubar = tk.Menu(container)
         filemenu = tk.Menu(menubar)
-        filemenu.add_command(label="Exit", command=on_closing)
+        filemenu.add_command(label="Exit", command=self.on_closing)
         menubar.add_cascade(label="File", menu=filemenu)
 
         tk.Tk.config(self, menu=menubar)
@@ -55,3 +49,6 @@ class App(tk.Tk):
 
     def get_frame(self, page_name):
         return self.frames[page_name]
+
+    def on_closing(self):
+        sys.exit()

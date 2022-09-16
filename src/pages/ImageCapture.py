@@ -21,6 +21,10 @@ class ImageCapture(tk.Frame):
         self.body = ttk.Frame(self)
         self.body.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
 
+        self.button1 = ttk.Button(self, text="Back",
+            command=lambda: self.back(controller))
+        self.button1.pack(in_=self.options, side=tk.LEFT, anchor="n")
+
         self.button1 = ttk.Button(self, text="Take Image",
             command=lambda: self.take_snapshot(controller))
         self.button1.pack(in_=self.options, side=tk.LEFT, anchor="n")
@@ -47,6 +51,10 @@ class ImageCapture(tk.Frame):
             self.enable_camera()
         controller.show_frame("ImageCapture")
 
+    def back(self, controller):
+        page = controller.get_frame("Navigation")
+        page.show(controller)
+
     def take_snapshot(self, controller):
         ret, frame = self.camera.get_frame()
         if ret:
@@ -68,3 +76,6 @@ class ImageCapture(tk.Frame):
         if self.camera:
             del self.camera
             self.camera = None
+        
+    def __del__(self):
+        self.disable_camera()

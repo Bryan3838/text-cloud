@@ -3,6 +3,8 @@ import tkinter as tk
 from tkinter import ttk
 from tkinter import filedialog as fd
 from PIL import Image
+import PyPDF2
+
 from src.ImageText import ImageText
 
 from src.FileType import file_types_list, FileType
@@ -75,21 +77,30 @@ class Navigation(tk.Frame):
 
             page = controller.get_frame("SourceView")
 
+            title = base_name
+            image = None
+            text = None
             if category == FileType.IMAGE_FILES:
                 image = Image.open(path)
                 image = ImageText(image)
-
-                page.add_data(base_name, image, image.text_array)
             elif category == FileType.TEXT_FILES:
-                text = []
+                text_read = []
                 with open(path) as f:
                     for line in f:
-                        text.append(line.strip())
-                text_array = TextArray(text)
+                        text_read.append(line.strip())
+                text = TextArray(text_read)
 
-                page.add_data(base_name, None, text_array)
             elif category == FileType.PDF_FILE:
-                pass
+                text_read = []
+                pdf_obj = open(path, "rb")
+                pdf_reader = PyPDF2.PdfFileReader(pdf_obj)
+                for i in range(pdf_reader.numPages):
+                    page_obj = pdf_reader.getPage(i)
+                    text_read.append(page_obj.extract_text())
+                text = TextArray(text_read)
+
+            page.add_data(title, image, text)
+
         page1 = controller.get_frame("SourceView")
         page1.show(controller)
 

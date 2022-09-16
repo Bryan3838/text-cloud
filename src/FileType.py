@@ -8,5 +8,5 @@ class FileType(Enum):
 file_types_list = [
     (FileType.IMAGE_FILES.value, [".jpeg", ".png", ".jpg"]),
     (FileType.TEXT_FILES.value, [".txt"]),
-    (FileType.PDF_FILE, [".pdf"])
+    (FileType.PDF_FILE.value, [".pdf"])
 ]

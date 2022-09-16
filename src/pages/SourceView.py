@@ -33,13 +33,13 @@ class SourceView(tk.Frame):
 
     def show(self, controller):
         controller.show_frame("SourceView")
-        self.update(controller)
+        self.update()
 
     def add_another_source(self, controller):
         page = controller.get_frame("Navigation")
         page.show(controller)
 
-    def update(self, controller):
+    def update(self):
         if self.data_frames:
             for frame in self.data_frames:
                 if frame:
@@ -90,6 +90,7 @@ class SourceView(tk.Frame):
 
                 separator_frame = tk.Frame(self.body.scrollable_frame, height=10, bg="gray")
                 separator_frame.pack(side=tk.TOP, fill=tk.X, expand=True)
+                self.data_frames.append(separator_frame)
 
     def add_data(self, file_type, title, image, text):
         self.data.update({
@@ -117,4 +118,5 @@ class SourceView(tk.Frame):
     def delete_data(self, frame, key):
         frame.destroy()
         del self.data[key]
+        self.update()
         

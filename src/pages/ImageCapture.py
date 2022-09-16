@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 from PIL import Image, ImageTk
 
+from src.FileType import FileType
 from src.ImageText import ImageText
 from src.Camera import Camera
 from src.fonts import LARGE_FONT
@@ -53,7 +54,7 @@ class ImageCapture(tk.Frame):
             image = ImageText(image)
 
             page = controller.get_frame("SourceView")
-            page.add_data("Image Capture", image, image.text_array)
+            page.add_data(FileType.IMAGE_FILES, "Image Capture", image, image.text_array)
             page.show(controller)
 
     def enable_camera(self):

@@ -101,14 +101,14 @@ class Navigation(tk.Frame):
                     text_read.append(page_obj.extract_text())
                 text = TextArray(text_read)
 
-            page.add_data(title, image, text)
+            page.add_data(category, title, image, text)
 
         page1 = controller.get_frame("SourceView")
         page1.show(controller)
 
     def insert_text(self, controller):
         page = controller.get_frame("SourceView")
-        page.add_data("Text Input", None, TextArray([]))
+        page.add_data(FileType.TEXT_FILES, "Text Input", None, TextArray([]))
         
         page1 = controller.get_frame("SourceView")
         page1.show(controller)

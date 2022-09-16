@@ -64,7 +64,7 @@ class SourceView(tk.Frame):
                     processed_image = image.get_text_bounding_box_image()
                     imagetk = ImageTk.PhotoImage(image=processed_image)
 
-                    image_window = ScrollableImage(data_frame, image=imagetk, scrollbarwidth=12, width=1080, height=720)
+                    image_window = ScrollableImage(data_frame, image=imagetk, scrollbarwidth=12, width=1080, height=min(imagetk.height(), 780))
                     image_window.pack(side=tk.TOP)
                     self.data_frames.append(image_window)
 

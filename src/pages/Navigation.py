@@ -83,6 +83,8 @@ class Navigation(tk.Frame):
             if category == FileType.IMAGE_FILES:
                 image = Image.open(path)
                 image = ImageText(image)
+
+                text = image.text_array
             elif category == FileType.TEXT_FILES:
                 text_read = []
                 with open(path) as f:

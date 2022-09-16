@@ -1,3 +1,4 @@
+from pickle import TRUE
 import tkinter as tk
 from tkinter import ttk
 from PIL import ImageTk
@@ -53,7 +54,7 @@ class SourceView(tk.Frame):
                 text = data[1]["text"]
 
                 data_frame = ttk.Frame(self.body.scrollable_frame)
-                data_frame.pack(side=tk.TOP)
+                data_frame.pack(side=tk.TOP, fill=tk.X, expand=True)
                 self.data_frames.append(data_frame)
 
                 text_label = ttk.Label(data_frame, text=title, font=LARGE_FONT)
@@ -65,13 +66,13 @@ class SourceView(tk.Frame):
                     imagetk = ImageTk.PhotoImage(image=processed_image)
 
                     image_window = ScrollableImage(data_frame, image=imagetk, scrollbarwidth=12, width=1080, height=min(imagetk.height(), 780))
-                    image_window.pack(side=tk.TOP)
+                    image_window.pack(side=tk.TOP, fill=tk.X, expand=True)
                     self.data_frames.append(image_window)
 
                 if text:
                     text_box = tk.Text(data_frame)
                     text_box.insert(tk.END, " ".join(text.text_array))
-                    text_box.pack(side=tk.TOP)
+                    text_box.pack(side=tk.TOP, fill=tk.X, expand=True)
                     self.data_frames.append(text_box)
                     button_update = ttk.Button(data_frame, text="Update",
                         command=lambda key=key, text_box=text_box: self.update_text(key, text_box))
@@ -82,7 +83,7 @@ class SourceView(tk.Frame):
                 button_delete.pack(side=tk.TOP)
 
                 separator_frame = tk.Frame(self.body.scrollable_frame, height=10, bg="gray")
-                separator_frame.pack(side=tk.TOP, fill=tk.X)
+                separator_frame.pack(side=tk.TOP, fill=tk.X, expand=True)
 
     def add_data(self, title, image, text):
         self.data.update({

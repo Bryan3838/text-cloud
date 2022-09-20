@@ -5,7 +5,8 @@ class ScrollableFrame(ttk.Frame):
     def __init__(self, container, *args, **kwargs):
         super().__init__(container, *args, **kwargs)
         self.canvas = tk.Canvas(self)
-        scrollbar = ttk.Scrollbar(self, orient="vertical", command=self.canvas.yview)
+        scrollbar = ttk.Scrollbar(self, orient=tk.VERTICAL, command=self.canvas.yview)
+        self.spacer_frame = tk.Frame(self, width=20)
         self.scrollable_frame = ttk.Frame(self.canvas)
 
         self.scrollable_frame.bind("<Configure>", self.on_frame_configure)
@@ -16,8 +17,9 @@ class ScrollableFrame(ttk.Frame):
 
         self.canvas.configure(yscrollcommand=scrollbar.set)
 
-        self.canvas.pack(side="left", fill="both", expand=True)
-        scrollbar.pack(side="right", fill="y")
+        self.spacer_frame.pack(side=tk.LEFT, fill=tk.Y)
+        self.canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+        scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
 
     def mouse_scroll(self, evt):
         if evt.state == 0 :

@@ -11,7 +11,7 @@ from src.FileType import file_types_list, FileType
 from src.TextArray import TextArray
 
 from src.fonts import LARGE_FONT
-
+#gets PDF support
 def get_file_category_from_extension(file_extension):
     for file_category in file_types_list:
         category, file_types = file_category
@@ -20,7 +20,7 @@ def get_file_category_from_extension(file_extension):
             if file_extension == extension:
                 return FileType(category)
     return None
-
+#gets image location
 def handle_image(file_path):
     return Image.open(file_path)
 
@@ -31,7 +31,7 @@ def open_files():
         filetypes=file_types_list
     )
     return file_paths
-
+#makes the frame for the navigation page
 class Navigation(tk.Frame):
 
     def __init__(self, parent, controller):
@@ -63,7 +63,7 @@ class Navigation(tk.Frame):
     def open_camera(self, controller):
         page = controller.get_frame("ImageCapture")
         page.show(controller)
-
+    #uploads files from computer; only PDF at the moment
     def upload_files(self, controller):
         self.file_paths = open_files()
         if not self.file_paths:

@@ -12,6 +12,22 @@ from src.fonts import LARGE_FONT, MEDIUM_FONT
 class SourceView(tk.Frame):
 
     def __init__(self, parent, controller):
+        # Dictionary of sources
+        # Heiarchy:
+        # {
+        #   key -> number: {
+        #       "file_type" -> FileType: , # Type of file as Enum
+        #       "title" -> string: ,       # Title of data object
+        #       "image" -> ImageText: ,    # Image Text class object
+        #       "text" -> TextArray: ,     # Text Array class object
+        #   }
+        # }
+        self.data = {}
+
+        # Private Variables
+        self.count = 0
+        self.data_frames = []
+
         tk.Frame.__init__(self, parent)
 
         self.header = ttk.Label(self, text="Source View", font=LARGE_FONT)
@@ -30,10 +46,6 @@ class SourceView(tk.Frame):
         self.button2 = ttk.Button(self, text="Generate Word Cloud",
             command=lambda: self.generate_word_cloud(controller))
         self.button2.pack(in_=self.options, side=tk.LEFT, anchor="nw")
-
-        self.count = 0
-        self.data = {}
-        self.data_frames = []
 
     def show(self, controller):
         controller.show_frame("SourceView")
@@ -132,6 +144,7 @@ class SourceView(tk.Frame):
         del self.data[key]
         self.update()
 
+    # Returns a 5-tuple of an item pf the sources data
     def get_data(self, data):
         key = data[0]
         file_type = data[1]["file_type"]

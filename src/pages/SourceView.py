@@ -91,6 +91,14 @@ class SourceView(tk.Frame):
                 separator_frame = tk.Frame(self.body.scrollable_frame, height=10, bg="gray")
                 separator_frame.pack(side=tk.TOP, fill=tk.X, expand=True)
                 self.data_frames.append(separator_frame)
+        else:
+            text_frame = ttk.Frame(self.body.scrollable_frame)
+            text_frame.pack(side=tk.TOP, fill=tk.X, expand=True)
+            self.data_frames.append(text_frame)
+
+            text_label = tk.Label(text_frame, text="No Sources Added", font=MEDIUM_FONT, fg="red")
+            text_label.pack(side=tk.TOP)
+            self.data_frames.append(text_label)
 
     def add_data(self, file_type, title, image, text):
         self.data.update({

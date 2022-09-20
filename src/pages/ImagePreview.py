@@ -5,7 +5,8 @@ from PIL import ImageTk
 from src.fonts import LARGE_FONT
 
 class ImagePreview(tk.Frame):
-
+    #intializes the basic window frame for the image preview section after taking a picture; assigns buttons to allow another frame to be taken or to move on from the 
+    #window
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
 
@@ -47,18 +48,18 @@ class ImagePreview(tk.Frame):
         image_label.imgtk = imagetk
         image_label.configure(image=imagetk)
             
-
+    #shows captured frame
     def show(self, controller):
         controller.show_frame("ImagePreview")
         self.update(controller)
-
+    #deletes frame?
     def retake_image(self, controller):
         page = controller.get_frame("SourceView")
         del page.data[max(page.data.keys())]
 
         page = controller.get_frame("ImageCapture")
         page.show(controller)
-
+    #Moves on from window that captures camera and closes the webcam
     def next(self, controller):
         page = controller.get_frame("SourceView")
         page.show(controller)

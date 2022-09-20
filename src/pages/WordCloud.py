@@ -16,4 +16,8 @@ class WordCloud(tk.Frame):
         self.update(controller)
 
     def update(self, controller):
-        pass
+        page = controller.get_frame("SourceView")
+        print(page.data)
+        for data in page.data.items():
+            (key, file_type, title, image, text) = page.get_data(data)
+            

@@ -43,17 +43,17 @@ class Navigation(tk.Frame):
         self.options = ttk.Frame(self)
         self.options.pack(side=tk.TOP)
 
-        self.button1 = ttk.Button(self, text="Open Camera",
+        self.button1 = ttk.Button(self.options, text="Open Camera",
             command=lambda: self.open_camera(controller))
-        self.button1.pack(in_=self.options)
+        self.button1.pack(side=tk.TOP)
 
-        self.button2 = ttk.Button(self, text="Upload File",
+        self.button2 = ttk.Button(self.options, text="Upload File",
             command=lambda: self.upload_files(controller))
-        self.button2.pack(in_=self.options)
+        self.button2.pack(side=tk.TOP)
 
-        self.button3 =  ttk.Button(self, text="Insert Text",
+        self.button3 =  ttk.Button(self.options, text="Insert Text",
             command=lambda: self.insert_text(controller))
-        self.button3.pack(in_=self.options)
+        self.button3.pack(side=tk.TOP)
 
         self.file_paths = None
 

@@ -57,6 +57,8 @@ class Navigation(tk.Frame):
             command=lambda: self.insert_text(controller))
         self.button3.pack(side=tk.TOP)
 
+        self.file_paths = None
+
     def show(self, controller):
         controller.show_frame("Navigation")
 

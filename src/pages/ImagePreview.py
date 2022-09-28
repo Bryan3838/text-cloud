@@ -7,6 +7,8 @@ from src.fonts import LARGE_FONT
 class ImagePreview(tk.Frame):
 
     def __init__(self, parent, controller):
+        self.label_frames = []
+        
         tk.Frame.__init__(self, parent)
 
         self.header = ttk.Label(self, text="Image Preview", font=LARGE_FONT)
@@ -25,8 +27,6 @@ class ImagePreview(tk.Frame):
         self.button2 = ttk.Button(self, text="Next",
             command=lambda: self.next(controller))
         self.button2.pack(in_=self.options, side=tk.LEFT, anchor="n")
-
-        self.label_frames = []
         
     def update(self, controller):
         if self.label_frames:

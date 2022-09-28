@@ -1,5 +1,8 @@
 import tkinter as tk
 from tkinter import ttk
+import WordCloud
+import matplotlib
+import pandas
 
 from src.fonts import LARGE_FONT
 

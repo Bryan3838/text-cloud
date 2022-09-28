@@ -5,6 +5,7 @@ import matplotlib
 import pandas
 
 from src.fonts import LARGE_FONT
+from src.TextArray import TextArray
 
 class WordCloud(tk.Frame):
     
@@ -23,4 +24,9 @@ class WordCloud(tk.Frame):
         print(page.data)
         for data in page.data.items():
             (key, file_type, title, image, text) = page.get_data(data)
-            
+
+    def retrieve_text(self):
+        return
+        
+    def generateCloud(self):
+        return

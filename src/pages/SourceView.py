@@ -43,20 +43,12 @@ class SourceView(tk.Frame):
             command=lambda: self.add_another_source(controller))
         self.button1.pack(in_=self.options, side=tk.LEFT, anchor="nw")
 
-        self.button2 = ttk.Button(self, text="Generate Word Cloud",
-            command=lambda: self.generate_word_cloud(controller))
-        self.button2.pack(in_=self.options, side=tk.LEFT, anchor="nw")
-
     def show(self, controller):
         controller.show_frame("SourceView")
         self.update()
 
     def add_another_source(self, controller):
         page = controller.get_frame("Navigation")
-        page.show(controller)
-    
-    def generate_word_cloud(self, controller):
-        page = controller.get_frame("WordCloud")
         page.show(controller)
 
     def update(self):

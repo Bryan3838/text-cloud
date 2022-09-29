@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 import WordCloud
-import matplotlib
+import matplotlib.pyplot as plt
 import pandas
 
 from src.fonts import LARGE_FONT
@@ -24,9 +24,9 @@ class WordCloud(tk.Frame):
         print(page.data)
         for data in page.data.items():
             (key, file_type, title, image, text) = page.get_data(data)
-
-    def retrieve_text(self):
-        return
         
-    def generateCloud(self):
-        return
+    def generateCloud(self, controller):
+        page = controller.get_frame("SourceView")
+        cloud = WordCloud(background_color="white",width=1000,height=1000,
+        max_words=10,relative_scaling=0.5,normalize_plurals=False).generate_from_frequencies(page.data.items)
+        plt.imshow(cloud)

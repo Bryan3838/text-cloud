@@ -35,6 +35,8 @@ def open_files():
 class Navigation(tk.Frame):
 
     def __init__(self, parent, controller):
+        self.file_paths = None
+
         ttk.Frame.__init__(self, parent)
 
         self.header = ttk.Label(self, text="Navigation", font=LARGE_FONT)
@@ -54,8 +56,6 @@ class Navigation(tk.Frame):
         self.button3 =  ttk.Button(self.options, text="Insert Text",
             command=lambda: self.insert_text(controller))
         self.button3.pack(side=tk.TOP)
-
-        self.file_paths = None
 
     def show(self, controller):
         controller.show_frame("Navigation")

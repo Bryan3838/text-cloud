@@ -10,9 +10,6 @@ from src.fonts import LARGE_FONT
 class ImageCapture(tk.Frame):
 
     def __init__(self, parent, controller):
-        self.camera_process = None
-        self.camera = None
-        
         ttk.Frame.__init__(self, parent)
 
         self.header = ttk.Label(self, text="Image Capture", font=LARGE_FONT)
@@ -36,6 +33,9 @@ class ImageCapture(tk.Frame):
         self.label_frame.pack(in_=self.body)
         self.image_label = ttk.Label(self.label_frame)
         self.image_label.pack()
+
+        self.camera_process = None
+        self.camera = None
 
     def update(self):
         ret, frame = self.camera.get_frame()

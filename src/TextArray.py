@@ -1,8 +1,4 @@
 import re
-import nltk
-from nltk.corpus import stopwords
-
-nltk.download('stopwords', quiet=True)
 
 class TextArray():
 
@@ -16,8 +12,6 @@ class TextArray():
         return dict(reversed_dict)
 
     def cleaned(self, text_array):
-        list = [text.lower() for text in text_array] # lowercase elements
-        list = [re.sub("[0-9]", '', text) for text in text_array] # filter numbers
-        list = [text for text in list if text not in stopwords.words('english')] # filter stopwords
+        list = [re.sub("[0-9]", '', i) for i in text_array]
         text = " ".join(list)
-        return re.findall(r"\w+", text)
+        return re.findall(r"\w+", text.lower())

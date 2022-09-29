@@ -1,6 +1,5 @@
-nltk==3.7
 numpy==1.23.2
 opencv_python==4.6.0.66
 Pillow==9.2.0
-PyPDF2==2.11.0
+PyPDF2==2.10.8
 pytesseract==0.3.10

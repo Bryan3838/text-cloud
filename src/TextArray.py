@@ -15,9 +15,9 @@ class TextArray():
         reversed_dict = reversed(sorted_dict)
         return dict(reversed_dict)
 
-    def clean(self, text_array):
-        list = [text.lower() for text in text_array] # lowercase elements
-        list = [re.sub("[0-9]", '', text) for text in text_array] # filter numbers
+    def clean(self):
+        list = [text.lower() for text in self.text_array] # lowercase elements
+        list = [re.sub("[0-9]", '', text) for text in list] # filter numbers
         list = [text for text in list if text not in stopwords.words('english')] # filter stopwords
         text = " ".join(list)
         text = re.findall(r"\w+", text)

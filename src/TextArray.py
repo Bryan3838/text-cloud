@@ -20,4 +20,5 @@ class TextArray():
         list = [re.sub("[0-9]", '', text) for text in text_array] # filter numbers
         list = [text for text in list if text not in stopwords.words('english')] # filter stopwords
         text = " ".join(list)
-        return self.text_array
+        text = re.findall(r"\w+", text)
+        return text

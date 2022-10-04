@@ -1,6 +1,7 @@
 import re
 import nltk
 from nltk.corpus import stopwords
+import csv
 
 nltk.download('stopwords', quiet=True)
 
@@ -22,3 +23,10 @@ class TextArray():
         text = " ".join(list)
         text = re.findall(r"\w+", text)
         return text
+
+    #dunno where to put this but this writes to a CSV all the words
+    def csvFormat(self):
+        with open("file","w") as write:
+            for key in self.text_array:
+                print >>write, key
+

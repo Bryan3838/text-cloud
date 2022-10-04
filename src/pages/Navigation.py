@@ -100,6 +100,23 @@ class Navigation(tk.Frame):
                     page_obj = pdf_reader.getPage(i)
                     text_read.append(page_obj.extract_text())
                 text = TextArray(text_read)
+            #in progress
+            elif category == FileType.CSV_FILE:
+                text_read_split = []
+                with open(path) as f:
+                    #split every line by commas, then place
+                    for line in f:
+                        #gets lines of text from csv file and gets rid of spaces; keeps it into string
+                        strippedLine = line.strip()
+                        #split the line
+                        tempList = strippedLine.split(",")
+                        #appends each str in tempList to text_read_split
+                        for i in range(len(tempList)):
+                            text_read_split.append(tempList[i])
+                text = TextArray(text_read_split)
+
+
+
 
             page.add_data(category, title, image, text)
 
@@ -112,3 +129,9 @@ class Navigation(tk.Frame):
         
         page1 = controller.get_frame("SourceView")
         page1.show(controller)
+
+    #dunno where to put this but this writes to a CSV all the words
+    def csvFormat(self):
+        with open("file","w") as write:
+            for key, value in self.text_array:
+                print >>write, key, value

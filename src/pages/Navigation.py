@@ -104,30 +104,18 @@ class Navigation(tk.Frame):
             elif category == FileType.CSV_FILE:
                 text_read_split = []
                 with open(path) as f:
-                    #split every line by commas, then place
+                    #split every line by commas, then place into a temporary list
                     for line in f:
-                        #gets lines of text from csv file and gets rid of spaces; keeps it into string
+                        #gets lines of text from csv file and gets rid of spaces; make a list of stings broken by commas
                         tempList = line.strip().split(",")
-                        #split the line
-                        #tempList = strippedLine.split(",")
-                        # for j in range(len(text_read_split)):
-                        #     print(text_read_split[j])
-                        #appends each str in tempList to text_read_split
-                        for i in range(len(tempList)):
-                            #if column is value. duplicate
-                            if tempList[i].isnumeric():
-                                print("true")
-                                j = int(tempList[i])
-                                #adds in strings that are numbered
-                                while j > 0:
-                                    text_read_split.append(tempList[i - 1])
-                                    j = j - 1
-                            text_read_split.append(tempList[i])
-                # for j in range(len(text_read_split)):
-                #     print(text_read_split[j])
-                #     two = '2'
-                # print(two.isnumeric())
+                        #Have to strip integers again to get rid of empty spaces to process
+                        numApperance = int(tempList[1].strip())
+                        while numApperance > 0:
+                            text_read_split.append(tempList[0])
+                            numApperance-=1
+                print(text_read_split)
                 text = TextArray(text_read_split)
+
 
 
 

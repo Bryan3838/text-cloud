@@ -63,11 +63,40 @@ class WordCloudGen(tk.Frame):
                 command=lambda: self.handle_popup(popup, controller)).pack()
             center(popup)
             return
+
+        # # Button handling
+        # root = tk.Tk()
+        # root.geometry('500x500')
+        # # placement = 0
+        # for key, value in combined_dict.items():
+        #     myLabel = tk.Label(root, text = value)
+        #     myButton = tk.Button(root, text=key, command = myLabel.pack)
+        #     myButton.place(x=100, y=75)
+        #     myButton.pack(side=tk.TOP, anchor="w")
+        #     # placement += 5
+
+        # # Bar Plot Example
+        # keys = combined_dict.keys()
+        # values = combined_dict.values()
+        # plt.figure(1)
+        # plt.bar(keys, values)
+        # plt.show()
         
         self.data_frame = ttk.Frame(self.body)
         self.data_frame.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
 
         self.generate_cloud(combined_dict)
+
+        # Button handling
+        root = tk.Tk()
+        root.geometry('500x500')
+        placement = -100
+        for key, value in combined_dict.items():
+            myLabel = tk.Label(root, text=value)
+            myLabel.place(anchor="n")
+            myButton = tk.Button(root, text=key, command=myLabel.pack)
+            myButton.pack(side=tk.TOP, anchor="w")
+            placement += 15
                 
     def handle_popup(self, popup, controller):
         popup.destroy()

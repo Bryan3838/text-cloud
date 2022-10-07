@@ -5,12 +5,14 @@ from src.pages.Navigation import Navigation
 from src.pages.ImageCapture import ImageCapture
 from src.pages.ImagePreview import ImagePreview
 from src.pages.SourceView import SourceView
+from src.pages.WordCloudGen import WordCloudGen
 
 pages = {
     "Navigation": Navigation,
     "ImageCapture": ImageCapture,
     "ImagePreview": ImagePreview,
     "SourceView": SourceView,
+    "WordCloudGen": WordCloudGen,
 }
 
 class App(tk.Tk):

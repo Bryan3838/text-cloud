@@ -1,4 +1,9 @@
-# CECS 450 - Word Cloud
+# Word Cloud
+
+## Links
+[Download Executable](https://github.com/Bryan3838/text-cloud/releases/download/v1.0.0/Word.Cloud.exe)
+
+[Releases](https://github.com/Bryan3838/text-cloud/releases/tag/v1.0.0)
 
 ## Prerequisites
 

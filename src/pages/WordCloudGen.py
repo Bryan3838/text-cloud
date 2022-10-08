@@ -81,6 +81,7 @@ class WordCloudGen(tk.Frame):
                     combined_dict[word] += count
                 else:
                     combined_dict[word] = count
+        combined_dict = dict(reversed(sorted(combined_dict.items(), key=lambda item: item[1])))
 
         if len(combined_dict) <= 0:
             popup = tk.Toplevel(self)

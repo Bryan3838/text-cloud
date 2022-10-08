@@ -12,11 +12,15 @@ import matplotlib.pyplot as plt
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
 
+from src.components.ScrollableFrame import ScrollableFrame
 from src.fonts import LARGE_FONT
-from src.TextArray import get_dict
+from src.TextArray import get_dict, clean
 from src.ResourceUtils import resource_path
 
+stopwords_path = resource_path("./wordcloud/stopwords")
 image_font_path = resource_path("./wordcloud/DroidSansMono.ttf")
+
+stopwords = list(map(str.strip, open(stopwords_path)))
 
 class WordCloudGen(tk.Frame):
     
@@ -31,24 +35,34 @@ class WordCloudGen(tk.Frame):
         self.options = ttk.Frame(self)
         self.options.pack(side=tk.TOP)
 
-        self.body = ttk.Frame(self)
-        self.body.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
-
-        self.button1 = ttk.Button(self, text="Back to Source View",
+        self.button1 = ttk.Button(self.options, text="Back to Source View",
             command=lambda: self.back_to_source_view(controller))
-        self.button1.pack(in_=self.options, side=tk.LEFT, anchor="n")
+        self.button1.pack(side=tk.LEFT, anchor="n")
 
-        self.button2 = ttk.Button(self, text="Regenerate",
+        self.button2 = ttk.Button(self.options, text="Regenerate",
             command=lambda: self.refresh_word_cloud(controller))
-        self.button2.pack(in_=self.options, side=tk.LEFT, anchor="n")
+        self.button2.pack(side=tk.LEFT, anchor="n")
+
+        self.body = ScrollableFrame(self)
+        self.body.pack(side=tk.TOP, expand=True, fill=tk.BOTH)
 
         self.fig1 = Figure(dpi=100)
         
-        self.canvas = FigureCanvasTkAgg(self.fig1, self.body)
+        self.canvas = FigureCanvasTkAgg(self.fig1, self.body.scrollable_frame)
         self.canvas.get_tk_widget().pack(side=tk.TOP, fill=tk.BOTH, expand=True)
 
-        NavigationToolbar2Tk(self.canvas, self.body)
+        NavigationToolbar2Tk(self.canvas, self.body.scrollable_frame)
         self.canvas.get_tk_widget().pack()
+
+        self.label = ttk.Label(self.body.scrollable_frame, text="Stopwords", font=LARGE_FONT)
+        self.label.pack(side=tk.TOP)
+
+        text_box = tk.Text(self.body.scrollable_frame)
+        text_box.insert(tk.END, ",".join(stopwords))
+        text_box.pack(side=tk.TOP, fill=tk.X, expand=True)
+        button_update = ttk.Button(self.body.scrollable_frame, text="Update",
+            command=lambda text_box=text_box: self.update_text(text_box))
+        button_update.pack(side=tk.TOP)
 
     def show(self, controller):
         controller.show_frame("WordCloudGen")
@@ -59,13 +73,11 @@ class WordCloudGen(tk.Frame):
         combined_dict = {}
         for data in page.data.items():
             (key, file_type, title, image, text) = page.get_data(data)
-            for word, count in get_dict(text.clean()).items():
+            for word, count in get_dict(clean(text.text_array, stopwords)).items():
                 if word in combined_dict:
                     combined_dict[word] += count
                 else:
                     combined_dict[word] = count
-        
-        print(combined_dict)
 
         if len(combined_dict) <= 0:
             popup = tk.Toplevel(self)
@@ -111,6 +123,10 @@ class WordCloudGen(tk.Frame):
         plt.xticks(rotation=45, ha='right')
         plt.yticks(np.arange(0, max(values) + 1, math.ceil((max(values) / 10)) + 1))
         plt.show()
+
+    def update_text(self, text_box):
+        global stopwords
+        stopwords = list(text_box.get("1.0","end-1c").replace(" ", "").split(","))
 
 def center(win):
     """

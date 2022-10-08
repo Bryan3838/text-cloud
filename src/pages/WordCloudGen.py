@@ -46,12 +46,15 @@ class WordCloudGen(tk.Frame):
         self.body = ScrollableFrame(self)
         self.body.pack(side=tk.TOP, expand=True, fill=tk.BOTH)
 
+        self.data_frame = ttk.Frame(self.body.scrollable_frame)
+        self.data_frame.pack(side=tk.TOP, expand=True, fill=tk.BOTH)
+
         self.fig1 = Figure(dpi=100)
         
-        self.canvas = FigureCanvasTkAgg(self.fig1, self.body.scrollable_frame)
+        self.canvas = FigureCanvasTkAgg(self.fig1, self.data_frame)
         self.canvas.get_tk_widget().pack(side=tk.TOP, fill=tk.BOTH, expand=True)
 
-        NavigationToolbar2Tk(self.canvas, self.body.scrollable_frame)
+        NavigationToolbar2Tk(self.canvas, self.data_frame)
         self.canvas.get_tk_widget().pack()
 
         self.label = ttk.Label(self.body.scrollable_frame, text="Stopwords", font=LARGE_FONT)

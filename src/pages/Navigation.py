@@ -89,7 +89,7 @@ class Navigation(tk.Frame):
                 text_read = []
                 with open(path) as f:
                     for line in f:
-                        text_read.append(line.strip())
+                        text_read += line.strip().split()
                 text = TextArray(text_read)
 
             elif category == FileType.PDF_FILE:
@@ -98,7 +98,7 @@ class Navigation(tk.Frame):
                 pdf_reader = PyPDF2.PdfFileReader(pdf_obj)
                 for i in range(pdf_reader.numPages):
                     page_obj = pdf_reader.getPage(i)
-                    text_read.append(page_obj.extract_text())
+                    text_read += page_obj.extract_text().split()
                 text = TextArray(text_read)
 
             page.add_data(category, title, image, text)

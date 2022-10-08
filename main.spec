@@ -8,7 +8,10 @@ a = Analysis(
     ['main.py'],
     pathex=[],
     binaries=[],
-    datas=[('stopwords', 'wordcloud')],
+    datas=[
+        ('./wordcloud/stopwords', 'wordcloud'),
+        ('./wordcloud/DroidSansMono.ttf', 'wordcloud')
+    ],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},

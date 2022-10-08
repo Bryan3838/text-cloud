@@ -20,7 +20,7 @@ class App(tk.Tk):
     def __init__(self, *args, **kwargs):
         tk.Tk.__init__(self, *args, **kwargs)
 
-        tk.Tk.wm_title(self, "App")
+        tk.Tk.wm_title(self, "Word Cloud Generator")
 
         self.protocol("WM_DELETE_WINDOW", self.on_closing)
 

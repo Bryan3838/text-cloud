@@ -6,6 +6,7 @@ import math
 from wordcloud import WordCloud
 
 import matplotlib
+
 matplotlib.use("TkAgg")
 import matplotlib.pyplot as plt
 from matplotlib.figure import Figure
@@ -13,8 +14,9 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolb
 
 from src.fonts import LARGE_FONT
 from src.TextArray import get_dict
+from src.ResourceUtils import resource_path
 
-# stopwords = ["where's", 'having', 'under', "weren't", 'cannot', 'nor', 'where', 'same', 'of', 'should', "shouldn't", 'or', 'than', 'once', 'therefore', 'yourselves', 'does', 'those', 'be', 'below', 'only', 'into', "they'll", "she'd", 'com', 'at', "wouldn't", "that's", 'this', "here's", "i've", "let's", 'however', 'r', 'its', 'was', "isn't", 'am', 'http', "she's", 'again', 'been', 'hence', "she'll", 'all', "wasn't", 'between', 'what', "can't", "haven't", 'theirs', 'how', 'there', 'no', 'who', 'they', 'own', 'such', 'with', 'by', 'to', 'get', "what's", "they've", 'why', 'you', "i'd", 'k', "don't", 'most', 'over', 'but', 'and', 'through', 'from', 'do', 'which', 'during', 'he', 'a', "when's", 'shall', 'my', 'i', 'both', "they're", "aren't", 'in', 'before', 'itself', "we're", 'that', 'your', "we'll", 'each', 'would', 'as', 'them', 'then', 'ours', 'ought', 'hers', 'him', 'an', 'are', "he's", 'too', 'against', 'for', 'these', 'when', "you'll", 'themselves', "who's", 'after', 'more', 'on', 'whom', 'did', 'yours', 'above', 'other', 'his', 'since', 'up', 'had', 'very', "you've", 'also', 'have', 'doing', "we'd", 'any', "i'm", "couldn't", "he'll", "he'd", "hadn't", 'otherwise', 'the', "we've", 'else', 'while', 'yourself', "mustn't", 'being', "doesn't", 'out', "they'd", 'www', 'down', 'about', 'just', 'she', 'if', 'so', "there's", 'has', "why's", 'could', 'were', "won't", 'off', 'me', 'some', 'like', "shan't", 'himself', 'few', 'myself', "hasn't", "didn't", 'her', 'we', 'herself', 'further', 'their', 'until', 'here', 'is', "you'd", 'ever', "it's", "how's", 'our', 'because', 'can', "i'll", 'ourselves', 'it', 'not', "you're"]
+image_font_path = resource_path("./wordcloud/DroidSansMono.ttf")
 
 class WordCloudGen(tk.Frame):
     
@@ -90,7 +92,7 @@ class WordCloudGen(tk.Frame):
         
     def generate_cloud(self, cloud_dict):
         cloud = WordCloud(width=1920, height=1080, background_color = "white",
-            max_font_size = 100, max_words = 300, colormap = "plasma").generate_from_frequencies(cloud_dict)
+            max_font_size = 100, max_words = 300, colormap = "plasma", font_path=image_font_path).generate_from_frequencies(cloud_dict)
 
         self.plot = self.fig1.add_subplot(111)
         self.plot.imshow(cloud, interpolation='bilinear')
@@ -104,7 +106,7 @@ class WordCloudGen(tk.Frame):
         values = limit_dict.values()
         plt.figure(1)
         plt.bar(keys, values)
-        plt.xlabel("Word")
+        plt.xlabel("Words")
         plt.ylabel("Count")
         plt.xticks(rotation=45, ha='right')
         plt.yticks(np.arange(0, max(values) + 1, math.ceil((max(values) / 10)) + 1))

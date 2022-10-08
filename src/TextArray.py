@@ -9,8 +9,7 @@ def clean(text_array, stopwords):
     list = [text.lower() for text in text_array] # lowercase elements
     list = [re.sub(r"[0-9]", '', text) for text in list] # remove numbers
     list = [re.sub(r"(?!(?<=[a-z])'[a-z])[^\w\s]", ' ', text, flags=re.I) for text in list] # remove non-puncuated words
-    list = [text.strip() for text in list] # remove whitespace
-    list = [text for text in list if text not in stopwords] # filter stopwords
+    list = [text.strip() for text in list if text.strip() and (text.strip() not in stopwords)] # remove whitespace, remove empty strings and filter stopwords
     return list
 
 def get_dict(text_array):

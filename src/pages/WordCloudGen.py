@@ -22,6 +22,9 @@ image_font_path = resource_path("./wordcloud/DroidSansMono.ttf")
 
 stopwords = list(map(str.strip, open(stopwords_path)))
 
+MAX_WORDS = 300
+MAX_FONT_SIZE = 200
+
 class WordCloudGen(tk.Frame):
     
     def __init__(self, parent, controller):
@@ -107,8 +110,16 @@ class WordCloudGen(tk.Frame):
         self.update(controller)
         
     def generate_cloud(self, cloud_dict):
-        cloud = WordCloud(width=1920, height=1080, background_color = "white",
-            max_font_size = 100, max_words = 300, colormap = "plasma", font_path=image_font_path).generate_from_frequencies(cloud_dict)
+        class MyColorFunctor():
+            def __init__(self,frequencies):
+                self.frequencies = frequencies
+
+            def __call__(self,word,font_size,position,orientation,random_state=None,**kwargs):
+                hsl_color = "hsl(%d, 80%%, 50%%)" % ((360-60) * (font_size/200)) #(360/(1+360*math.exp(self.frequencies[word])/(self.max/10))) ## Sigmoid
+                return hsl_color
+        
+        cloud = WordCloud(width=1920, height=1080, background_color="white",
+            max_font_size=MAX_FONT_SIZE, max_words=MAX_WORDS,  color_func=MyColorFunctor(cloud_dict), font_path=image_font_path).generate_from_frequencies(cloud_dict)
 
         self.plot = self.fig1.add_subplot(111)
         self.plot.imshow(cloud, interpolation='bilinear')
